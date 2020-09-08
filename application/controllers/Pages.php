@@ -1,9 +1,5 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-use RestServer\RestController;
-use RestServer\Format;
-require(APPPATH . 'libraries/RestController.php');
-require(APPPATH . 'libraries/Format.php');
 
 
 /**
@@ -11,7 +7,7 @@ require(APPPATH . 'libraries/Format.php');
     * Web Developer
     * @author      Galeh Fatma Eko Ardiansa S.Kom
     * @type        Controller
-    * @package     master_api_ci/Employee
+    * @package     master_api_ci/Pages
     * @copyright   Copyright (c) 2019 GFEACORP
     * @version     1.0, 29 Dec 2019
     * Email        galeh.fatma@gmail.com
@@ -20,24 +16,23 @@ require(APPPATH . 'libraries/Format.php');
 */
 
 
-class Employee extends RestController
+class Pages extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Model_karyawan','karyawan');
     }
-    function index_get(){
-        $id=$this->get('id');
-        $employee = $this->karyawan->getListKaryawan($id);
-        if($employee){
-            $this->apimessages->good_data($employee);
-        }else{
-            $this->apimessages->not_found();
-        }
+    function index(){
+        redirect('pages/not_allowed');
     }
-    
 
     //========================================== BLOCK CHANGE ==========================================//
-
+    public function not_allowed()
+    {
+        $this->load->view('global/not_allowed');
+    }
+    public function not_found()
+    {
+        $this->load->view('global/not_found');
+    }
 }

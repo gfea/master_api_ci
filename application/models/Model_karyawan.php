@@ -39,4 +39,16 @@ class Model_karyawan extends CI_Model
         $query=$this->db->get()->result_array();
         return $query;
     }
+    public function getListLogPresensi($limit = 100,$sync=0)
+    {
+        $this->db->select('a.id_data_presensi,a.id_karyawan,a.tanggal,a.jam');
+        $this->db->from('data_presensi_plain AS a');
+        if (!$sync) {
+            $this->db->where('a.sync',0);
+        }
+        $this->db->limit($limit); 
+        $this->db->order_by('create_date','ASC');
+        $query=$this->db->get()->result_array();
+        return $query;
+    }
 }
